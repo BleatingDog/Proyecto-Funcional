@@ -1,5 +1,5 @@
+import scala.collection.parallel.CollectionConverters._
 import scala.util.Random
-
 package object Riego {
 
   // Tipos de datos
@@ -59,19 +59,33 @@ package object Riego {
   }
 
   def costoRiegoFinca(f: Finca, pi: ProgRiego): Int = {
-
+    val costos = for {
+      id_tablon <- pi
+    } yield costoRiegoTablon(id_tablon, f, pi)
+    costos.sum
   }
 
   def costoRiegoFincaPar(f: Finca, pi: ProgRiego): Int = {
-
+    val costos = for {
+      id_tablon <- pi.par
+    } yield costoRiegoTablon(id_tablon, f, pi)
+    costos.sum
   }
 
   def costoMovilidad(f: Finca, pi: ProgRiego, d: Distancia): Int = {
-
+    val parejasTablones = for {
+      i <- 0 to pi.length - 2
+    } yield (pi(i), pi(i + 1))
+    val distanciaPorPareja = parejasTablones.map{case (x, y) => d(x)(y)}
+    distanciaPorPareja.sum
   }
 
   def costoMovilidadPar(f: Finca, pi: ProgRiego, d: Distancia): Int = {
-
+    val parejasTablones = for {
+      i <- (0 to pi.length - 2).par
+    } yield (pi(i), pi(i + 1))
+    val distanciaPorPareja = parejasTablones.map { case (x, y) => d(x)(y) }
+    distanciaPorPareja.sum
   }
 
   //Generando programaciones de riego
