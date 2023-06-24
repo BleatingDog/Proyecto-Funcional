@@ -102,6 +102,12 @@ package object Riego {
 
   //Generando programaciones de riego
   /*
+  def generarProgramacionesRiego(f: Finca): Vector[ProgRiego] = {
+
+  }
+  */
+  
+  /*
   def generarProgramacionesRiegoPar(f: Finca): Vector[ProgRiego] = {
 
   }
