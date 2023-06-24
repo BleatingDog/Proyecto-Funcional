@@ -20,21 +20,31 @@ val distancia:Distancia = Vector( Vector(0, 2, 2, 4, 4),
                                   Vector(4, 6, 2, 4, 0)
                                 )
 
+/*
 val programacion1:ProgRiego = Vector(0,1,4,2,3)
 val programacion2:ProgRiego = Vector(2,1,4,3,0)
 
-//val costoRiegoFinca = costoRiegoFinca(finca, programacion1)
+val programaciones = generarProgramacionesRiego(finca)
+val programacionesH = generarProgramacionesRiego2(finca)
 
+val optimo = programacionRiegoOptimo(finca,distancia)
+
+val tiempoRiego = tIR(finca,programacion1)
+val costoRiegoFincaTotal = costoRiegoFinca(finca, programacion1)
+val costoRiegoFincaTotalPar = costoRiegoFincaPar(finca, programacion1)
 //Probando costoMovilidadFinca
-/*
+
 val costoMovilidadFinca = costoMovilidad(finca, programacion2, distancia)
 val costoMovilidadFincaPar = costoMovilidadPar(finca, programacion2, distancia)
 */
 
 //Pruebas rendimiento
 /*
-standardConfig measure(costoMovilidad(finca,programacion1,distancia))
-standardConfig measure(costoMovilidad2(finca,programacion1,distancia))
-standardConfig measure(costoMovilidadPar(fincaRandom,programacion1,distanciaRandom))
-standardConfig measure(costoMovilidadPar2(fincaRandom,programacion1,distanciaRandom))
- */
+for{
+  i <- 1 to 1
+  finca = fincaAlAzar(math.pow(10,i).toInt*5)
+  distancia = distanciaAlAzar(math.pow(10,i).toInt*5)
+  programacion = programacionRiegoOptimo2(finca,distancia)._1
+} yield (standardConfig measure(costoMovilidad(finca,programacion,distancia)),
+  standardConfig measure(costoMovilidadPar(finca,programacion,distancia)), math.pow(10,i).toInt*5)
+*/

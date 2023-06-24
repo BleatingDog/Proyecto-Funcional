@@ -47,15 +47,27 @@ package object Riego {
   }
 
   // ------- Implementación del problema de riego ------- \\
-  /*
+
   //Calculando el tiempo de inicio de riego
   def tIR(f:Finca, pi:ProgRiego): TiempoInicioRiego = {
-
+    val tiemposRiego = pi.scanLeft(0)((acc, tablon) => acc + treg(f,tablon)) //tiempos de riego en orden ascendente
+    val tiemposConAjuste = tiemposRiego.take(pi.length) //El último elemento de tiemposRiego representa el tiempo final del último tablón, por lo tanto no se toma
+    pi.map(x => tiemposConAjuste(pi(x)))  //tiempos de riego por orden de tablón
   }
 
   //Calculando costos
   def costoRiegoTablon(i: Int, f: Finca, pi: ProgRiego): Int = {
+    val tiempoInicioRiego = tIR(f,pi)(i)
+    val tiempoSupervivencia = tsup(f,i)
+    val tiempoRiego = treg(f,i)
+    val prioridadTablon = prio(f,i)
 
+    if (tiempoSupervivencia - tiempoRiego > tiempoInicioRiego) {
+      tiempoSupervivencia - (tiempoInicioRiego + tiempoRiego)
+      }
+    else {
+      prioridadTablon * ((tiempoInicioRiego + tiempoRiego) - tiempoSupervivencia)
+    }
   }
 
   def costoRiegoFinca(f: Finca, pi: ProgRiego): Int = {
@@ -89,19 +101,24 @@ package object Riego {
   }
 
   //Generando programaciones de riego
-  def generarProgramacionesRiego(f: Finca): Vector[ProgRiego] = {
-
-  }
-
+  /*
   def generarProgramacionesRiegoPar(f: Finca): Vector[ProgRiego] = {
 
   }
+  */
 
   //Calculando una programación de riego óptimo
+  /*
   def programacionRiegoOptimo(f: Finca, d: Distancia): (ProgRiego, Int) = {
-
+    val programaciones = generarProgramacionesRiego(f)
+    val costosRiego = programaciones.map{prog => costoMovilidad(f, prog, d) + costoRiegoFinca(f, prog)}
+    val costoOptimo = costosRiego.min
+    val programacionOptima = (programaciones(costosRiego.indexOf(costoOptimo)), costoOptimo)
+    programacionOptima
   }
+  */
 
+  /*
   def programacionRiegoOptimoPar(f: Finca, d: Distancia): (ProgRiego, Int) = {
 
   }
