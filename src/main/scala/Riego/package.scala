@@ -90,7 +90,7 @@ package object Riego {
     val distanciaPorPareja = parejasTablones.map{case (x, y) => d(x)(y)}
     distanciaPorPareja.sum
   }
-  
+
   def costoMovilidadPar(f: Finca, pi: ProgRiego, d: Distancia): Int = {
     val parejasTablones = for {
       i <- (0 to pi.length - 2).par

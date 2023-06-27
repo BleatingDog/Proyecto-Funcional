@@ -21,18 +21,14 @@ val distancia:Distancia = Vector( Vector(0, 2, 2, 4, 4),
                                   Vector(4, 2, 2, 0, 4),
                                   Vector(4, 6, 2, 4, 0)
                                 )
-val programacion1:ProgRiego = Vector(0,1,4,2,3)
-val programacion2:ProgRiego = Vector(2,1,4,3,0)
+
 val allProgramaciones = generarProgramacionesRiego2(finca)
 allProgramaciones.length
 val programacionOptima = programacionRiegoOptimo(finca,distancia)
 val prog = Vector(1, 3, 4, 2, 0)
 val tiempo = tIR(finca,prog)
-val tiempo2 = tIR2(finca,prog)
 val costo = costoRiegoFinca(finca,prog) + costoMovilidad(finca,prog,distancia)
-val costo = costoRiegoFinca2(finca,prog) + costoMovilidad2(finca,prog,distancia)
 val costoTablon = costoRiegoTablon(0,finca,prog)
-val costoTablon2 = costoRiegoTablon2(0,finca,prog)
 
 /*
 val programacion1:ProgRiego = Vector(0,1,4,2,3)
