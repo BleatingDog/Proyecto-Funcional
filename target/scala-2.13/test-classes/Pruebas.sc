@@ -7,9 +7,11 @@ val standardConfig = config (
   Key.exec.benchRuns := 25,
   Key.verbose := false
 ) withWarmer (Warmer.Default())
-
-//val fincaRandom = fincaAlAzar(1000)
-//val distanciaRandom = distanciaAlAzar(1000)
+/*
+val fincaRandom = fincaAlAzar(100)
+val distanciaRandom = distanciaAlAzar(100)
+val riegoOptimo = programacionRiegoOptimo(fincaRandom,distanciaRandom)
+*/
 
 //Ejemplo 1 del profesor -> Verificar que las funciones sirven :D
 val finca:Finca = Vector(new Tablon(10,3,4), new Tablon(5,3,3), new Tablon(2,2,1), new Tablon(8,1,1), new Tablon(6,4,2))
@@ -19,12 +21,15 @@ val distancia:Distancia = Vector( Vector(0, 2, 2, 4, 4),
                                   Vector(4, 2, 2, 0, 4),
                                   Vector(4, 6, 2, 4, 0)
                                 )
-val programaciones = generarProgramacionesRiego(finca)
-val costosRiego = programaciones.map { prog => costoMovilidad(finca, prog, distancia) + costoRiegoFinca(finca, prog) }
-val costoOptimo = costosRiego.min
-val programacionOptima = (programaciones(costosRiego.indexOf(31)), 31)
-val programacionOptima = (programaciones(costosRiego.indexOf(costoOptimo)), costoOptimo)
-val optima = programacionRiegoOptimo(finca,distancia)
+
+val allProgramaciones = generarProgramacionesRiego2(finca)
+allProgramaciones.length
+val programacionOptima = programacionRiegoOptimo(finca,distancia)
+val prog = Vector(1, 3, 4, 2, 0)
+val costo = costoRiegoFinca(finca,prog) + costoMovilidad(finca,prog,distancia)
+val costo = costoRiegoFinca2(finca,prog) + costoMovilidad2(finca,prog,distancia)
+val costoTablon = costoRiegoTablon(0,finca,prog)
+val costoTablon2 = costoRiegoTablon2(0,finca,prog)
 
 /*
 val programacion1:ProgRiego = Vector(0,1,4,2,3)

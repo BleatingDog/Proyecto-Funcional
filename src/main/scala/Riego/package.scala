@@ -62,14 +62,13 @@ package object Riego {
     val tiempoRiego = treg(f,i)
     val prioridadTablon = prio(f,i)
 
-    if (tiempoSupervivencia - tiempoRiego > tiempoInicioRiego(i)) {
+    if (tiempoSupervivencia - tiempoRiego >= tiempoInicioRiego(i)) {
       tiempoSupervivencia - (tiempoInicioRiego(i) + tiempoRiego)
       }
     else {
       prioridadTablon * ((tiempoInicioRiego(i) + tiempoRiego) - tiempoSupervivencia)
     }
   }
-
   def costoRiegoFinca(f: Finca, pi: ProgRiego): Int = {
     val costos = for {
       id_tablon <- pi
@@ -91,7 +90,7 @@ package object Riego {
     val distanciaPorPareja = parejasTablones.map{case (x, y) => d(x)(y)}
     distanciaPorPareja.sum
   }
-
+  
   def costoMovilidadPar(f: Finca, pi: ProgRiego, d: Distancia): Int = {
     val parejasTablones = for {
       i <- (0 to pi.length - 2).par
@@ -116,6 +115,22 @@ package object Riego {
     permutaciones(indices, Vector())
   }
 
+  def generarProgramacionesRiego2(f: Finca): Vector[ProgRiego] = {
+    val indices = f.indices.toVector
+
+    def generarPermutaciones(indices: Vector[Int]): Vector[ProgRiego] = {
+      if (indices.isEmpty) {
+        Vector(Vector.empty[Int]) // Caso base: lista vacía, retornar una programación vacía
+      } else {
+        for {
+          i <- indices
+          prog <- generarPermutaciones(indices.filterNot(_ == i))
+        } yield i +: prog
+      }
+    }
+    generarPermutaciones(indices)
+  }
+
   
   /*
   def generarProgramacionesRiegoPar(f: Finca): Vector[ProgRiego] = {
@@ -126,7 +141,7 @@ package object Riego {
   //Calculando una programación de riego óptimo
 
   def programacionRiegoOptimo(f: Finca, d: Distancia): (ProgRiego, Int) = {
-    val programaciones = generarProgramacionesRiego(f)
+    val programaciones = generarProgramacionesRiego2(f)
     val costosRiego = programaciones.map{prog => (prog, costoMovilidad(f, prog, d) + costoRiegoFinca(f, prog))}
     costosRiego.minBy(_._2)
     //val costoOptimo = costosRiego.min
