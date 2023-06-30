@@ -33,6 +33,8 @@ Las funciones que encontrará son:
 Este es el archivo ejecutable donde podrá correr todas las pruebas que se diseñaron, con el objetivo de verificar que los resultados que arrojas las funciones son los esperados.
 Además, en este archivo se encuentran alojadas las pruebas de rendimiento para comparar los tiempos de ejecución de las versiones secuenciales y paralelas.
 
+### common
+Este archivo contiene las funciones que permiten realizar la paralelización de tareas, tales como parallel y task.
 ### Para correr el programa:
 
 #### Usando un entorno de trabajo
