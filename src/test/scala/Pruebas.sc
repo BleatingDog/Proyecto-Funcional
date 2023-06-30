@@ -282,3 +282,53 @@ standardConfig measure costoMovilidadPar(fincaAlAzar1,programacionAlAzar1,distan
 standardConfig measure costoRiegoFinca(fincaAlAzar1,programacionAlAzar1)
 standardConfig measure costoRiegoFincaPar(fincaAlAzar1,programacionAlAzar1)
 */
+
+val finca10:Finca = Vector(new Tablon(1,2,3), new Tablon(4,3,2), new Tablon(1,2,4), new Tablon(5,1,4), new Tablon(6,4,2))
+val finca11:Finca = Vector(new Tablon(1,5,5), new Tablon(4,2,5), new Tablon(1,4,2), new Tablon(2,4,2), new Tablon(3,1,3))
+val finca12:Finca = Vector(new Tablon(2,2,4), new Tablon(3,1,5), new Tablon(3,4,3), new Tablon(1,1,1), new Tablon(2,1,5))
+val finca13:Finca = Vector(new Tablon(3,2,4))
+val finca14:Finca = Vector(new Tablon(2,4,1), new Tablon(1,4,5))
+val programacion10:ProgRiego = Vector(0,1,4,3,2)
+val programacion11:ProgRiego = Vector(0,4,1,2,3)
+val programacion12:ProgRiego = Vector(0,1,2,4,3)
+val programacion13:ProgRiego = Vector(0)
+val programacion14:ProgRiego = Vector(0,1)
+val distancia5:Distancia = distanciaAlAzar(5)
+val distancia1:Distancia = distanciaAlAzar(1)
+val distancia2:Distancia = distanciaAlAzar(2)
+
+//Pruebas de tIR
+
+
+val primerCasoR = tIR(finca10, programacion10)
+val segundoCasoR = tIR(finca10, programacion11)
+val tercerCasoR = tIR(finca11, programacion11)
+val cuartoCasoR = tIR(finca13, programacion13)
+val quintocasoR = tIR(finca14, programacion14)
+
+//Pruebas de costoRiegoTablon
+
+
+val primerCasoT = costoRiegoTablon(0,finca10,programacion10)
+val segundoCasoT = costoRiegoTablon(1,finca10, programacion11)
+val tercerCasoT = costoRiegoTablon(4,finca11, programacion11)
+val cuartoCasoT = costoRiegoTablon(0,finca13, programacion13)
+val quintoCasoT = costoRiegoTablon(1,finca14,programacion14)
+
+// Pruebas de costoRiegoFinca
+
+
+val primerCasoF = costoRiegoFinca(finca10, programacion10)
+val segundoCasoF = costoRiegoFinca(finca10, programacion11)
+val tercerCasoF = costoRiegoFinca(finca11, programacion11)
+val cuartoCasoF = costoRiegoFinca(finca13, programacion13)
+val quintoCasoF = costoRiegoFinca(finca14 , programacion14)
+
+
+// Pruebas de costoMovilidad
+
+val primerCasoM = costoMovilidad(finca10,programacion10, distancia5)
+val segundoCasoM = costoMovilidad(finca10, programacion11, distancia5)
+val tercerCasoM = costoMovilidad(finca11, programacion11, distancia5)
+val cuartoCasoM = costoMovilidad(finca13, programacion13, distancia1)
+val quintoCasoM = costoMovilidad(finca14, programacion14, distancia2)
