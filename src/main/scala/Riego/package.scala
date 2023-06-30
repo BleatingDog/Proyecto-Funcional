@@ -169,45 +169,6 @@ package object Riego {
     generarPermutacionesPar(indices)
   }
 
-  def generarProgramacionesRiegoPar2(f: Finca): Vector[ProgRiego] = {
-
-    //Verifica si una programación de riego es válida para una finca.
-    def booleanProgramacion(programacion: ProgRiego, finca: Finca): Boolean = {
-      val tiemposRiego = tIR(finca, programacion)
-
-      //Tiempos de riego sin duplicado.
-      val clausula1 = tiemposRiego.distinct.length == tiemposRiego.length
-      //Tiempos de riego para cada elemento de la programación sea mayor o igual al tiempo de riego máximo.
-      val clausula2 = tiemposRiego.zip(programacion).foldLeft(0)((acc, pair) => acc + treg(finca, pair._2)) >= tiemposRiego.max
-
-      //Validacion T F.
-      clausula1 && clausula2
-    }
-
-    //Finca to list
-    val indices = f.indices.toList
-
-    def generarTodasProgramaciones(indicesLibres: List[Int]): Vector[ProgRiego] = {
-      indicesLibres match {
-        //Vacio
-        case Nil => Vector.empty
-        //1 indice
-        case indice :: Nil =>
-          val programacion = Vector(indice)
-          if (booleanProgramacion(programacion, f)) Vector(programacion) else Vector.empty
-        //else
-        case _ =>
-          //parallel
-          indicesLibres.toVector.par.flatMap { indice =>
-            val indicesRest = indicesLibres.filterNot(_ == indice)
-            val programacionRest = generarTodasProgramaciones(indicesRest)
-            programacionRest.map(indice +: _)
-          }.filter(booleanProgramacion(_, f)).toVector
-      }
-    }
-    generarTodasProgramaciones(indices)
-  }
-
   //Calculando una programación de riego óptimo
 
   def programacionRiegoOptimo(f: Finca, d: Distancia): (ProgRiego, Int) = {
@@ -223,5 +184,4 @@ package object Riego {
     }
     costosRiego.minBy(_._2)
   }
-
 }
