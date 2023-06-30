@@ -207,7 +207,7 @@ package object Riego {
     }
     generarTodasProgramaciones(indices)
   }
-  
+
   //Calculando una programación de riego óptimo
 
   def programacionRiegoOptimo(f: Finca, d: Distancia): (ProgRiego, Int) = {
